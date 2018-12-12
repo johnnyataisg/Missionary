@@ -58,11 +58,11 @@ namespace Missionary
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "491098030731-bfrktd5mosevjfespg4no4plc3inu6vj.apps.googleusercontent.com",
+                ClientSecret = "dW7mCspB6-VW9MAiSqBBT_cb"
+            });
         }
     }
 }
