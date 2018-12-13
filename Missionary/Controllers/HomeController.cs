@@ -54,13 +54,14 @@ namespace Missionary.Controllers
             }
             else
             {
+                ViewBag.UserID = value;
                 List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == value).ToList();
                 return View(questionList);
             }
         }
 
         [HttpPost]
-        public ActionResult FAQ(string question)
+        public ActionResult FAQ(string question, int userID)
         {
             return View();
         }
