@@ -182,6 +182,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\MissionDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,20 +190,22 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mission.cs" />
+    <Compile Include="Models\MissionQuestion.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\1200px-Flag_of_North_Korea.svg.png" />
+    <Content Include="Content\nkorea.png" />
     <Content Include="Content\2000px-Logo_of_the_Church_of_Jesus_Christ_of_Latter-day_Saints.svg.png" />
-    <Content Include="Content\255px-Flag_of_the_People%27s_Republic_of_China.svg.png" />
+    <Content Include="Content\shanghai.png" />
     <Content Include="Content\bible-pictures-sermon-on-the-mount-958526-wallpaper.jpg" />
     <Content Include="Content\bible.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Christ_in_Spirit_World-e1385391202877.jpg" />
+    <Content Include="Content\spirit.jpg" />
     <Content Include="Content\LDS_Church_presence_in_world.png" />
     <Content Include="Content\missionpresident1.jpg" />
     <Content Include="Content\San-Diego-California-Temple1.jpg" />
@@ -259,6 +262,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Mission.cshtml" />
     <Content Include="Views\Home\MissionInfo.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

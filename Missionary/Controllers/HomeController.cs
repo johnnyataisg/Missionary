@@ -1,96 +1,123 @@
-﻿using Missionary.Models;
+﻿using Missionary.DAL;
+using Missionary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Missionary.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
-        static Mission mission = new Mission();
-
+        private MissionDatabase db = new MissionDatabase();
+        static User currentUser = new User();
+        
         public ActionResult Index()
         {
+            ViewBag.User = currentUser.Email;
             return View();
         }
 
         public ActionResult About()
         {
-            return View();
+            return View(currentUser);
         }
 
         public ActionResult Contact()
         {
             return View();
         }
-
+        
         public ActionResult Mission()
         {
-            return View();
+            List<Mission> missionList = db.Missions.ToList();
+            return View(missionList);
         }
 
-        public ActionResult MissionInfo(string value)
+        public ActionResult MissionInfo(int value)
         {
-            if (value == "Shanghai")
+            if (currentUser.UserID == 0)
             {
-                mission.MissionName = "China Shanghai Mission";
-                mission.PresidentName = "Xi Jin Ping";
-                mission.Address = "1912 Democracy St, Shanghai";
-                mission.Language = "Mandarin Chinese";
-                mission.Climate = "Not too hot, mildly humid";
-                mission.Religion = "Materialism";
-                mission.Flag = "../Content/255px-Flag_of_the_People's_Republic_of_China.svg.png";
-            }
-            else if (value == "Pyongyang")
-            {
-                mission.MissionName = "North Korea Pyongyang Mission";
-                mission.PresidentName = "Kim Jong Eun";
-                mission.Address = "1776 America Blvd, Pyongyang";
-                mission.Language = "Korean";
-                mission.Climate = "Politically sensitive";
-                mission.Religion = "Kim Ancestral Worship";
-                mission.Flag = "../Content/1200px-Flag_of_North_Korea.svg.png";
+                return RedirectToAction("Login", "Home");
             }
             else
             {
-                mission.MissionName = "Spirit Prison Mission";
-                mission.PresidentName = "Jesus";
-                mission.Address = "Paradise Temple Work Mission Department Room AD-33";
-                mission.Language = "Multilingual";
-                mission.Climate = "Not applicable";
-                mission.Religion = "Awaiting Conversion-ism";
-                mission.Flag = "../Content/Christ_in_Spirit_World-e1385391202877.jpg";
+                Mission mission = db.Missions.Find(value);
+                return View(mission);
             }
-            ViewBag.Mission = mission.MissionName;
-            ViewBag.Output += "<div class=\"mission-textbox\">";
-            ViewBag.Output += "<h4>Mission Name: " + mission.MissionName + "</h4>";
-            ViewBag.Output += "<h4>President's Name: " + mission.PresidentName + "</h4>";
-            ViewBag.Output += "<h4>Mission Address: " + mission.Address + "</h4>";
-            ViewBag.Output += "<h4>Language Spoken: " + mission.Language + "</h4>";
-            ViewBag.Output += "<h4>Area Climate: " + mission.Climate + "</h4>";
-            ViewBag.Output += "<h4>Local Religion: " + mission.Religion + "</h4>";
-            ViewBag.Output += "<img style=\"width: 300px; height: 200px;\" src=" + mission.Flag + ">";
-            ViewBag.Output += "</div>";
-            return View("MissionInfo");
         }
 
         public ActionResult Reply()
         {
-            ViewBag.Mission = mission.MissionName;
-            ViewBag.Output += "<div class=\"mission-textbox\">";
-            ViewBag.Output += "<h4>Mission Name: " + mission.MissionName + "</h4>";
-            ViewBag.Output += "<h4>President's Name: " + mission.PresidentName + "</h4>";
-            ViewBag.Output += "<h4>Mission Address: " + mission.Address + "</h4>";
-            ViewBag.Output += "<h4>Language Spoken: " + mission.Language + "</h4>";
-            ViewBag.Output += "<h4>Area Climate: " + mission.Climate + "</h4>";
-            ViewBag.Output += "<h4>Local Religion: " + mission.Religion + "</h4>";
-            ViewBag.Output += "<img style=\"width: 300px; height: 200px;\" src=" + mission.Flag + ">";
-            ViewBag.Output += "</div>";
-            ViewBag.Reply += "<textarea placeholder=\"Type something...\" style=\"margin-top: 15px;\" class=\"form-control\" rows=\"10\" cols=\"75\"></textarea>";
+            
             return View("MissionInfo");
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User user, string confirmPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                User test = db.Users.Where(m => m.Email == user.Email).FirstOrDefault();
+                if (test == null)
+                {
+                    if (user.Password == confirmPassword)
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        FormCollection form = new FormCollection();
+                        form["email"] = user.Email;
+                        form["password"] = user.Password;
+                        return Login(form);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection form)
+        {
+            string email = form["email"].ToString();
+            string password = form["password"].ToString();
+
+            User user = db.Users.Where(m => m.Email == email && m.Password == password).FirstOrDefault();
+            if (user != null)
+            {
+                FormsAuthentication.SetAuthCookie(email, false);
+                currentUser = user;
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        public ActionResult Logoff()
+        {
+            currentUser = new User();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
