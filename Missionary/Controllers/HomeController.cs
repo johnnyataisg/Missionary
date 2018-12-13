@@ -34,10 +34,19 @@ namespace Missionary.Controllers
         public ActionResult Mission()
         {
             List<Mission> missionList = db.Missions.ToList();
+            ViewBag.User = currentUser.Email;
             return View(missionList);
         }
-
+        
         public ActionResult MissionInfo(int value)
+        {
+            Mission mission = db.Missions.Find(value);
+            ViewBag.User = currentUser.Email;
+            return View(mission);
+        }
+
+        [HttpGet]
+        public ActionResult FAQ(int value)
         {
             if (currentUser.UserID == 0)
             {
@@ -45,14 +54,19 @@ namespace Missionary.Controllers
             }
             else
             {
-                Mission mission = db.Missions.Find(value);
-                return View(mission);
+                List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == value).ToList();
+                return View(questionList);
             }
+        }
+
+        [HttpPost]
+        public ActionResult FAQ(string question)
+        {
+            return View();
         }
 
         public ActionResult Reply()
         {
-            
             return View("MissionInfo");
         }
 
