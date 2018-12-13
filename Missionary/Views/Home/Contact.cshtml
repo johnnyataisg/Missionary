@@ -1,17 +1,43 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div style="min-height: 700px; padding-left: 20px; float: left; width: 30%;">
+    <h2>Contact Details</h2>
+    <address>
+        1234 W 6789 N<br />
+        Salt Lake City, UT 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        801.264.9700
+    </address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <address>
+        <strong>Company Email:</strong> <a href="mailto:servethelord@missionexperience.com">servethelord@missionexperience.com</a><br />
+        <strong>Mission Department Email:</strong> <a href="mailto:missionarydepartment@myldsmail.net">missionarydepartment@myldsmail.net</a>
+    </address>
+
+    <div>
+        <form>
+            <label for="fname">Full Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name.." class="form-control">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="emailaddress" placeholder="Your email.." class="form-control">
+
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" class="form-control">
+                <option value="1">Customer Complaint</option>
+                <option value="2">FAQ</option>
+                <option value="3">Other</option>
+            </select>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write something.." class="form-control" style="height:200px"></textarea>
+
+            <input style="margin-top: 20px;" class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+<div style="min-height: 700px; width: 70%; float: right; text-align: left;">
+    <img src="~/Content/San-Diego-California-Temple1.jpg" style="width: 600px; padding-top: 100px;" />
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "MissionInformation";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href=@Url.Action("Index", "Home")>Home</a></li>
+    <li class="breadcrumb-item"><a href=@Url.Action("Mission", "Home")>Mission Selection</a></li>
+    <li class="breadcrumb-item active">@ViewBag.Mission</li>
+</ol>
+<h2 class="mission-textbox">Mission Information</h2>
+@Html.Raw((String)ViewBag.Output)
+<div class="mission-textbox mission-question">
+    <h4>Post any questions you have:</h4>
+    <textarea placeholder="Type something..." class="form-control" rows="10" cols="75"></textarea>
+    <a style="margin-top: 15px;" href="" class="btn btn-primary">Post Question</a>
+</div>
+<div style="margin-left: 20px; margin-top: 20px;">
+    <h3>FAQ Section:</h3>
+    @Html.Raw((String)ViewBag.Reply)
+    <a style="margin-top: 15px;" href=@Url.Action("Reply", "Home") class="btn btn-primary">Reply</a>
+</div>

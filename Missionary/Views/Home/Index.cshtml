@@ -2,30 +2,73 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="video-background">
+    <div class="video-cover">
+        <div class="header-left">
+            <h1 style="color: #ffffff; font-size: 3.0rem; font-weight: 300;">The Field is White Already to Harvest</h1>
+            <p class="intro-text">
+                “I saw a pillar of light exactly over my head, above the brightness of the sun, which descended gradually until it fell upon me.
+                When the light rested upon me I saw two Personages, whose brightness and glory defy all description, standing above me in the air.
+                One of them spake unto me, calling me by name and said, pointing to the other—This is My Beloved Son. Hear Him!”
+                <br />
+                <br />
+                -Joseph Smith, <span style="font-style: italic">The First Vision</span>
+            </p>
+            <button id="videoBtn" class="btn btn-outline-warning intro-button">Watch Missionary Video</button>
+        </div>
+        <div class="header-right">
+            <div class="form-box">
+                <form>
+                    <fieldset>
+                        <legend>Learn More About This Work</legend>
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Type Password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Retype Password">
+                        </div>
+                        <button type="submit" style="border-radius: 5px;" class="btn btn-warning">Submit</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="jumbotron" style="margin-bottom: 0px;">
+    <h1 class="display-3">Why Serve a Mission?</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" role="button">Go Forth To Serve</a>
+    </p>
+</div>
+
+<div id="video" class="modal" style="background: #000000e8;">
+    <div class="modal-cover">
+        <iframe id="youtube" class="row2-video" src="https://www.youtube.com/embed/fjwrMfY8tlY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("video");
+    // Get the button that opens the modal
+    var btn = document.getElementById("videoBtn");
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    modal.onclick = function (event) {
+        modal.style.display = "none";
+    }
+</script>
