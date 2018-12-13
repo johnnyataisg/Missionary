@@ -54,21 +54,37 @@ namespace Missionary.Controllers
             }
             else
             {
-                ViewBag.UserID = value;
+                ViewBag.MissionID = value;
                 List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == value).ToList();
                 return View(questionList);
             }
         }
 
         [HttpPost]
-        public ActionResult FAQ(string question, int userID)
+        public ActionResult FAQ(string question, int missionID)
         {
-            return View();
+            MissionQuestion missionQuestion = new MissionQuestion();
+            missionQuestion.Question = question;
+            missionQuestion.MissionID = missionID;
+            missionQuestion.Mission = db.Missions.Find(missionID);
+            missionQuestion.UserID = currentUser.UserID;
+            missionQuestion.User = currentUser;
+            db.MissionQuestions.Add(missionQuestion);
+            db.SaveChanges();
+            List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == missionID).ToList();
+            return View(questionList);
         }
 
-        public ActionResult Reply()
+        [HttpPost]
+        public ActionResult Reply(string reply, int questionID, int missionID)
         {
-            return View("MissionInfo");
+            MissionQuestion question = db.MissionQuestions.Find(questionID);
+            question.Answer = reply;
+            question.UserID = currentUser.UserID;
+            question.User = currentUser;
+            db.SaveChanges();
+            List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == missionID).ToList();
+            return RedirectToAction("FAQ", "Home", new { value = missionID });
         }
 
         [HttpGet]

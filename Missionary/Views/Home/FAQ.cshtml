@@ -3,26 +3,34 @@
     ViewBag.Title = "FAQ";
 }
 
-<div style="margin-left: 20px;">
+<div style="margin-left: 20px; margin-top: 20px;">
     <h2>FAQ</h2>
     @foreach (var item in Model)
     {
         <div class="card border-dark mb-3" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
+            <div class="card-header">@item.User.Email</div>
             <div class="card-body">
-                <h4 class="card-title">@item.User.Email</h4>
-                <p class="card-text">@item.Question</p>
+                <h4 class="card-title">@item.Question</h4>
+                <p class="card-text">@item.Answer</p>
             </div>
-            <a style="margin-top: 15px;" href=@Url.Action("Reply", "Home") class="btn btn-primary">Reply</a>
-        </div>
+            @using (Html.BeginForm("Reply", "Home", FormMethod.Post))
+            {
+                <div>
+                    <textarea name="reply" placeholder="Post a reply here..." class="form-control"></textarea>
+                    <input name="questionID" style="display: none;" value=@item.QuestionID />
+                    <input name="missionID" style="display: none;" value=@ViewBag.MissionID />
+                </div>
+                    <input type="submit" class="btn btn-primary" style="width: 100%;" value="Reply" />
+            }
+    </div>
     }
-    @using (Html.BeginForm("FAQ", "Home"))
+    @using (Html.BeginForm("FAQ", "Home", FormMethod.Post))
     {
         <div class="mission-question">
             <h4>Post any questions you have:</h4>
             <textarea name="question" placeholder="Type something..." class="form-control" rows="10" cols="75"></textarea>
-            <input name="userID" style="display: none;" value=@ViewBag.UserID />
-            <input type="submit" class="btn btn-primary" value="Post Question" />
+            <input name="missionID" style="display: none;" value=@ViewBag.MissionID />
+            <input type="submit" class="btn btn-primary question-btn" value="Post Question" />
         </div>
     }
 </div>
