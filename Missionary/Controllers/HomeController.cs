@@ -71,6 +71,7 @@ namespace Missionary.Controllers
             missionQuestion.User = currentUser;
             db.MissionQuestions.Add(missionQuestion);
             db.SaveChanges();
+            ViewBag.MissionID = missionID;
             List<MissionQuestion> questionList = db.MissionQuestions.Where(m => m.MissionID == missionID).ToList();
             return View(questionList);
         }
